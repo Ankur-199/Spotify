@@ -13,38 +13,45 @@
 </head>
 <body>
   <div class="main">
-    <div class="sidebar">
-      <div class="nav">
-        <div class="nav-option" style="opacity: 1;">
-          <i class="fa-solid fa-house"></i>
-          <a href="#">Home</a>
-        </div>
-        <div class="nav-option">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <a href="#">Search</a>
-        </div>
-      </div>
-      <div class="library">
-        <div class="options">
-          <div class="lib-option nav-option">
-            <img src="./assets/library_icon.png">
-            <a href="#">Your Library</a>
+    <button class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="sidebar-container">
+      <div class="sidebar">
+        <div class="nav">
+          <div class="nav-option" style="opacity: 1;">
+            <i class="fa-solid fa-house"></i>
+            <a href="#">Home</a>
           </div>
-          <div class="icons">
-            <i class="fa-solid fa-plus"></i>
-            <i class="fa-solid fa-arrow-right"></i>
+          <div class="nav-option">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <a href="#">Search</a>
           </div>
         </div>
-        <div class="lib-box">
-          <div class="box">
-            <p class="box-p1">Create your first playlist</p>
-            <p class="box-p2">It's easy, we'll help you</p>
-            <button class="badge">Create playlist</button>
+        <div class="library">
+          <div class="options">
+            <div class="lib-option nav-option">
+              <img src="./assets/library_icon.png">
+              <a href="#">Your Library</a>
+            </div>
+            <div class="icons">
+              <i class="fa-solid fa-plus"></i>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
           </div>
-          <div class="box">
-            <p class="box-p1">Let's find some podcasts to follow</p>
-            <p class="box-p2">We'll keep you updated on new episodes</p>
-            <button class="badge">Browse podcasts</button>
+          <div class="lib-box">
+            <div class="box">
+              <p class="box-p1">Create your first playlist</p>
+              <p class="box-p2">It's easy, we'll help you</p>
+              <button class="badge">Create playlist</button>
+            </div>
+            <div class="box">
+              <p class="box-p1">Let's find some podcasts to follow</p>
+              <p class="box-p2">We'll keep you updated on new episodes</p>
+              <button class="badge">Browse podcasts</button>
+            </div>
           </div>
         </div>
       </div>
@@ -157,5 +164,38 @@
       </div>
     </div>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.querySelector('.hamburger');
+      const sidebarContainer = document.querySelector('.sidebar-container');
+      const mainContent = document.querySelector('.main-content');
+
+      if (hamburger && sidebarContainer) {
+        hamburger.addEventListener('click', function(event) {
+          event.stopPropagation();
+          sidebarContainer.classList.toggle('active');
+          this.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(event) {
+          if (sidebarContainer.classList.contains('active') &&
+              !sidebarContainer.contains(event.target) &&
+              !hamburger.contains(event.target)) {
+            sidebarContainer.classList.remove('active');
+            hamburger.classList.remove('active');
+          }
+        });
+
+        if (mainContent) {
+          mainContent.addEventListener('click', function() {
+            if (sidebarContainer.classList.contains('active')) {
+              sidebarContainer.classList.remove('active');
+              hamburger.classList.remove('active');
+            }
+          });
+        }
+      }
+    });
+  </script>
 </body>
 </html>
